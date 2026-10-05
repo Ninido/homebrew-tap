@@ -1,13 +1,13 @@
 class Lowkey < Formula
   desc "Silent, cool, and battery-friendly local LLM launcher"
   homepage "https://github.com/ninido/lowkey"
-  version "0.4.1"
+  version "0.4.2"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-darwin-arm64.tar.gz"
-      sha256 "4ff8caa4d81f63ebd1acd654921e09203a5711aefcfb1649df8c636acaeceafa"
+      sha256 "aabce11d95e2cee1b1a4ace7a473aed94b3ca83edd52f01cf8e526cc27e1cf9e"
 
       def install
         bin.install "lowkey"
@@ -15,7 +15,7 @@ class Lowkey < Formula
     end
     if Hardware::CPU.intel?
       url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-darwin-amd64.tar.gz"
-      sha256 "b1829a17764131dfd1b3ffd955ec6f9aff71122ec629808f38aa992d7a53ecfb"
+      sha256 "19e6207b8aab8a82f7ba14a82397fc6a85b2f53e2fc90f5bcd95df36c976db7a"
 
       def install
         bin.install "lowkey"
@@ -26,7 +26,7 @@ class Lowkey < Formula
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-linux-arm64.tar.gz"
-      sha256 "219e2d3e684cff5b4c7cb02fb165825ea60dea0c550a0e75771d5a56a0e14422"
+      sha256 "1e10b1909b7f15f47293e1e35e7dbb5e42ecb348a87b878050e5005b5b7d5d69"
 
       def install
         bin.install "lowkey"
@@ -34,7 +34,7 @@ class Lowkey < Formula
     end
     if Hardware::CPU.intel?
       url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-linux-amd64.tar.gz"
-      sha256 "b91efc4e72aa88d245dfacad8f873549294cdd372d60c732eb028b9e4b5032e0"
+      sha256 "e6140f0120a89342d32c00c6d235cae3af8e12c38f36cef1fe8b2835160e62d3"
 
       def install
         bin.install "lowkey"
