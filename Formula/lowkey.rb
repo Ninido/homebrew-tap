@@ -1,48 +1,58 @@
 class Lowkey < Formula
   desc "Silent, cool, and battery-friendly local LLM launcher"
   homepage "https://github.com/ninido/lowkey"
-  version "0.3.0"
+  version "0.4.1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-darwin-arm64"
-      sha256 "5b8f7cc49c805b0a14597f62e8976a28e42351a59e8573efc9b8a07262d10dd7"
+      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-darwin-arm64.tar.gz"
+      sha256 "4ff8caa4d81f63ebd1acd654921e09203a5711aefcfb1649df8c636acaeceafa"
 
       def install
-        bin.install "lowkey-darwin-arm64" => "lowkey"
+        bin.install "lowkey"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-darwin-amd64"
-      sha256 "09981a277bbaf7977b1497e70fdbf4bff4946a357d901aec9cfd86c746724fe3"
+      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-darwin-amd64.tar.gz"
+      sha256 "b1829a17764131dfd1b3ffd955ec6f9aff71122ec629808f38aa992d7a53ecfb"
 
       def install
-        bin.install "lowkey-darwin-amd64" => "lowkey"
+        bin.install "lowkey"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-linux-arm64"
-      sha256 "ee7bb736c53209bb3f03de92869e3aac98dba66708b6b8ebcd17c5f5d1ce9148"
+      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-linux-arm64.tar.gz"
+      sha256 "219e2d3e684cff5b4c7cb02fb165825ea60dea0c550a0e75771d5a56a0e14422"
 
       def install
-        bin.install "lowkey-linux-arm64" => "lowkey"
+        bin.install "lowkey"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-linux-amd64"
-      sha256 "1de5e1761a00deb3e747fcf49feee1d4cff3e36e8da5214f76b7bf85237b51bb"
+      url "https://github.com/ninido/lowkey/releases/download/v#{version}/lowkey-linux-amd64.tar.gz"
+      sha256 "b91efc4e72aa88d245dfacad8f873549294cdd372d60c732eb028b9e4b5032e0"
 
       def install
-        bin.install "lowkey-linux-amd64" => "lowkey"
+        bin.install "lowkey"
       end
     end
   end
 
+  head do
+    url "https://github.com/ninido/lowkey.git", branch: "main"
+    depends_on "go" => :build
+
+    def install
+      system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}"), "main.go"
+    end
+  end
+
   test do
+    # Lowkey provides interactive TUI; ensure binary executes and runs
     assert_predicate bin/"lowkey", :exist?
     assert_predicate bin/"lowkey", :executable?
   end
